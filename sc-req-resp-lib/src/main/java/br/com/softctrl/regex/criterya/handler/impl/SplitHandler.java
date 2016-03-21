@@ -1,9 +1,9 @@
 /**
  * 
  */
-package br.com.softctrl.reqresp.criterya.handler.impl;
+package br.com.softctrl.regex.criterya.handler.impl;
 
-import br.com.softctrl.reqresp.criterya.handler.IHandler;
+import com.google.gson.annotations.Expose;
 
 /*
 The MIT License (MIT)
@@ -34,41 +34,24 @@ SOFTWARE.
  * 
  * @author carlostimoshenkorodrigueslopes@gmail.com
  */
-public class TrimHandler extends AHandler<String> {
+public class SplitHandler extends AHandler<String[]> {
+
+    @Expose
+    private String regex;
+
+    public SplitHandler(String regex) {
+        this.regex = regex;
+    }
 
     /*
      * (non-Javadoc)
      * 
-     * @see br.com.softctrl.reqresp.criterya.handler.IHandler#process(java.lang.
+     * @see br.com.softctrl.regex.criterya.handler.IHandler#process(java.lang.
      * String)
      */
     @Override
-    public String process(String value) {
-        return value.trim();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * br.com.softctrl.reqresp.criterya.handler.impl.AHandler#setInnerRule(br.
-     * com.softctrl.reqresp.criterya.handler.IHandler)
-     */
-    @Override
-    public AHandler<String> setInnerRule(IHandler<String> innerRule) {
-        return this;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * br.com.softctrl.reqresp.criterya.handler.impl.AHandler#processInnerRule(
-     * java.lang.String)
-     */
-    @Override
-    protected String processInnerRule(String value) {
-        return value;
+    public String[] process(String value) {
+        return this.processInnerRule(value).trim().split(regex);
     }
 
 }

@@ -1,7 +1,9 @@
 /**
  * 
  */
-package br.com.softctrl.reqresp.criterya.handler.impl;
+package br.com.softctrl.regex.criterya.handler.impl;
+
+import com.google.gson.annotations.Expose;
 
 /*
 The MIT License (MIT)
@@ -32,5 +34,25 @@ SOFTWARE.
  * 
  * @author carlostimoshenkorodrigueslopes@gmail.com
  */
-public class DefaultRuleHandler extends TrimHandler {
+public class ChangeCaseHandler extends AHandler<String> {
+
+    @Expose
+    private boolean upper = true;
+
+    public ChangeCaseHandler(boolean upper) {
+        this.upper = upper;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see br.com.softctrl.regex.criterya.handler.IHandler#process(java.lang.
+     * String)
+     */
+    @Override
+    public String process(String value) {
+        value = super.processInnerRule(value);
+        return (upper ? value.toUpperCase() : value.toLowerCase());
+    }
+
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.softctrl.reqresp.criterya.utils;
+package br.com.softctrl.regex.criterya.utils;
 
 import java.io.File;
 

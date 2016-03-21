@@ -1,4 +1,9 @@
-package br.com.softctrl.reqresp.criterya.handler;
+/**
+ * 
+ */
+package br.com.softctrl.regex.criterya.handler.impl;
+
+import br.com.softctrl.regex.criterya.handler.IHandler;
 
 /*
 The MIT License (MIT)
@@ -29,23 +34,41 @@ SOFTWARE.
  * 
  * @author carlostimoshenkorodrigueslopes@gmail.com
  */
-public interface IHandler<T> {
+public class TrimHandler extends AHandler<String> {
 
-    /**
-     * Here we can make a chain of rules on our parameter.
+    /*
+     * (non-Javadoc)
      * 
-     * @return a inner rule.
+     * @see br.com.softctrl.regex.criterya.handler.IHandler#process(java.lang.
+     * String)
      */
-    IHandler<String> getInnerRule();
+    @Override
+    public String process(String value) {
+        return value.trim();
+    }
 
-    /**
-     * This method perform some process in our parameter and returns the
-     * processed value <R>.
+    /*
+     * (non-Javadoc)
      * 
-     * @param value
-     *            the parameter.
-     * @return the processed value.
+     * @see
+     * br.com.softctrl.regex.criterya.handler.impl.AHandler#setInnerRule(br.
+     * com.softctrl.reqresp.criterya.handler.IHandler)
      */
-    T process(final String value);
+    @Override
+    public AHandler<String> setInnerRule(IHandler<String> innerRule) {
+        return this;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * br.com.softctrl.regex.criterya.handler.impl.AHandler#processInnerRule(
+     * java.lang.String)
+     */
+    @Override
+    protected String processInnerRule(String value) {
+        return value;
+    }
 
 }

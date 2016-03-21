@@ -1,3 +1,5 @@
+package br.com.softctrl.regex.criterya;
+
 /*
 The MIT License (MIT)
 
@@ -27,30 +29,20 @@ SOFTWARE.
  * 
  * @author carlostimoshenkorodrigueslopes@gmail.com
  */
-package br.com.softctrl.reqresp.criterya.handler.impl;
+public interface IQueryProcessor {
 
-import com.google.gson.annotations.Expose;
-
-public class SubStringHandler extends AHandler<String> {
-
-    @Expose
-    private int begin;
-    @Expose
-    private int end;
-
-    public SubStringHandler(int begin, int end) {
-        this.begin = begin;
-        this.end = end;
-    }
-
-    /*
-     * (non-Javadoc)
+    /**
      * 
-     * @see br.com.softctrl.reqresp.criterya.handler.IHandler#process(java.lang.
-     * String)
+     * @param userQuery
+     * @return
      */
-    @Override
-    public String process(final String value) {
-        return this.processInnerRule(value).substring(begin, end);
-    }
+    boolean matches(final String userQuery);
+
+    /**
+     * 
+     * @param userQuery
+     * @return
+     */
+    String parseQuery(final String userQuery);
+
 }

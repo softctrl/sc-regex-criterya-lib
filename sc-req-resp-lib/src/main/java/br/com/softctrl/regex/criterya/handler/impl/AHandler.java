@@ -1,6 +1,12 @@
-package br.com.softctrl.reqresp.criterya.handler.impl;
+/**
+ * 
+ */
+package br.com.softctrl.regex.criterya.handler.impl;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import br.com.softctrl.regex.criterya.handler.IHandler;
 
 /*
 The MIT License (MIT)
@@ -31,45 +37,61 @@ SOFTWARE.
  * 
  * @author carlostimoshenkorodrigueslopes@gmail.com
  */
-public class ReplaceAllHandler extends AHandler<String> {
+public abstract class AHandler<T> implements IHandler<T> {
 
     @Expose
-    private String regex = "";
-    @Expose
-    private String replacement = "";
+    @SerializedName("rule")
+    private IHandler<String> innerRule = new IHandler<String>() {
 
-    public ReplaceAllHandler(String regex, String replacement) {
-        this.regex = regex;
-        this.replacement = replacement;
-    }
+        /*
+         * (non-Javadoc)
+         * @see br.com.softctrl.regex.criterya.handler.IHandler#process(java.lang.String)
+         */
+        @Override
+        public String process(String value) {
+            return value.trim();
+        }
+
+        /*
+         * (non-Javadoc)
+         * @see br.com.softctrl.regex.criterya.handler.IHandler#getInnerRule()
+         */
+        @Override
+        public IHandler<String> getInnerRule() {
+            return null;
+        }
+    };
 
     /*
      * (non-Javadoc)
-     * 
-     * @see br.com.softctrl.reqresp.criterya.handler.IHandler#process(java.lang.
-     * String)
+     * @see br.com.softctrl.regex.criterya.handler.IHandler#getInnerRule()
      */
     @Override
-    public String process(final String value) {
-        return this.processInnerRule(value.replaceAll(this.getRegex(), this.getReplacement()));
+    public IHandler<String> getInnerRule() {
+        return this.innerRule;
     }
 
     /**
-     * Get the regex value.
      * 
-     * @return regex value.
+     * @param innerRule
+     * @return
      */
-    public String getRegex() {
-        return (this.regex == null ? "" : this.regex);
+    public AHandler<T> setInnerRule(IHandler<String> innerRule) {
+        this.innerRule = innerRule;
+        return this;
     }
 
     /**
-     * Get the replacement value.
      * 
-     * @return replacement value.
+     * @param value
+     * @return
      */
-    public String getReplacement() {
-        return (this.replacement == null ? "" : this.replacement);
+    protected String processInnerRule(String value) {
+        if (this.getInnerRule() != null) {
+            value = this.getInnerRule().process(value);
+        }
+        return value;
+
     }
 
 }

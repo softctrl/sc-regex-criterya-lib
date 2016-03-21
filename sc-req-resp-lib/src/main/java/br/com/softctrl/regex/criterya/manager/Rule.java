@@ -1,11 +1,11 @@
-package br.com.softctrl.reqresp.criterya.manager;
+package br.com.softctrl.regex.criterya.manager;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import br.com.softctrl.reqresp.criterya.handler.IHandler;
-import br.com.softctrl.reqresp.criterya.handler.impl.AHandler;
-import br.com.softctrl.reqresp.criterya.utils.GsonUtils;
+import br.com.softctrl.regex.criterya.handler.IHandler;
+import br.com.softctrl.regex.criterya.handler.impl.AHandler;
+import br.com.softctrl.regex.criterya.utils.GsonUtils;
 
 /*
 The MIT License (MIT)
@@ -38,7 +38,7 @@ SOFTWARE.
  */
 public class Rule {
 
-    private static final String PACKAGE = "br.com.softctrl.reqresp.criterya.handler.impl.%sHandler";
+    private static final String PACKAGE = "br.com.softctrl.regex.criterya.handler.impl.%sHandler";
 
     @Expose
     private int param;

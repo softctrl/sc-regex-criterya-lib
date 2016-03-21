@@ -1,10 +1,10 @@
-package br.com.softctrl.reqresp.criterya.manager;
+package br.com.softctrl.regex.criterya.manager;
 
 import com.google.gson.annotations.Expose;
 
-import br.com.softctrl.reqresp.criterya.IQueryProcessor;
-import br.com.softctrl.reqresp.criterya.handler.IHandler;
-import br.com.softctrl.reqresp.criterya.handler.impl.DefaultRuleHandler;
+import br.com.softctrl.regex.criterya.IQueryProcessor;
+import br.com.softctrl.regex.criterya.handler.IHandler;
+import br.com.softctrl.regex.criterya.handler.impl.DefaultRuleHandler;
 
 /*
 The MIT License (MIT)

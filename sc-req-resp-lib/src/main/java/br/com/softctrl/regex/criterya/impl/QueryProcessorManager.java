@@ -1,9 +1,10 @@
-/**
- * 
- */
-package br.com.softctrl.reqresp.criterya.handler.impl;
+package br.com.softctrl.regex.criterya.impl;
 
-import com.google.gson.annotations.Expose;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.softctrl.regex.criterya.IQueryProcessor;
+import br.com.softctrl.regex.criterya.manager.Processor;
 
 /*
 The MIT License (MIT)
@@ -34,24 +35,46 @@ SOFTWARE.
  * 
  * @author carlostimoshenkorodrigueslopes@gmail.com
  */
-public class SplitHandler extends AHandler<String[]> {
+public class QueryProcessorManager {
 
-    @Expose
-    private String regex;
+    private final static List<IQueryProcessor> PARSERS = new ArrayList<IQueryProcessor>();
 
-    public SplitHandler(String regex) {
-        this.regex = regex;
+    /**
+     * 
+     * @return
+     */
+    public static final List<IQueryProcessor> getParsers() {
+        return PARSERS;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
      * 
-     * @see br.com.softctrl.reqresp.criterya.handler.IHandler#process(java.lang.
-     * String)
      */
-    @Override
-    public String[] process(String value) {
-        return this.processInnerRule(value).trim().split(regex);
+    public static final synchronized void setup(final Processor[] processors) {
+        PARSERS.clear();
+        for (Processor processor : processors) {
+            try {
+                PARSERS.add(processor.createQueryProcessor());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param userQuery
+     * @return
+     */
+    public static final String parse(final String userQuery) {
+        String query = userQuery;
+        for (IQueryProcessor iQueryProcessor : PARSERS) {
+            if (iQueryProcessor.matches(userQuery)) {
+                query = iQueryProcessor.parseQuery(userQuery);
+                break;
+            }
+        }
+        return query;
     }
 
 }

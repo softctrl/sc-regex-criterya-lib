@@ -1,9 +1,4 @@
-/**
- * 
- */
-package br.com.softctrl.reqresp.criterya.handler.impl;
-
-import com.google.gson.annotations.Expose;
+package br.com.softctrl.regex.criterya.handler;
 
 /*
 The MIT License (MIT)
@@ -34,25 +29,23 @@ SOFTWARE.
  * 
  * @author carlostimoshenkorodrigueslopes@gmail.com
  */
-public class ChangeCaseHandler extends AHandler<String> {
+public interface IHandler<T> {
 
-    @Expose
-    private boolean upper = true;
-
-    public ChangeCaseHandler(boolean upper) {
-        this.upper = upper;
-    }
-
-    /*
-     * (non-Javadoc)
+    /**
+     * Here we can make a chain of rules on our parameter.
      * 
-     * @see br.com.softctrl.reqresp.criterya.handler.IHandler#process(java.lang.
-     * String)
+     * @return a inner rule.
      */
-    @Override
-    public String process(String value) {
-        value = super.processInnerRule(value);
-        return (upper ? value.toUpperCase() : value.toLowerCase());
-    }
+    IHandler<String> getInnerRule();
+
+    /**
+     * This method perform some process in our parameter and returns the
+     * processed value <R>.
+     * 
+     * @param value
+     *            the parameter.
+     * @return the processed value.
+     */
+    T process(final String value);
 
 }
