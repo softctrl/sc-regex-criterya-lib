@@ -1,1 +1,30 @@
-{}
+[
+    {
+        "name": "Contact",
+        "pattern": "^(contact|tel|cel):.+[^\\p{Punct}\\d]+\\.?",
+        "countParams": 1,
+        "format": "%s, i whant contact you!!",
+        "rules": 
+        [
+            {
+                "param": 0,
+                "class": "ReplaceAll",
+                "json": "{regex:\"(contact|tel|cel):\", replace:\"\"}",
+                "rule": 
+                {
+                    "class": "Trim",
+                    "json": "{}"
+                }
+            }
+        ]
+    },
+
+    {
+        "name": "Husband and wife",
+        "pattern": "^[^\\p{Punct}\\d]+\\.?,[^\\p{Punct}\\d]+\\.?",
+        "countParams": 2,
+        "splitParams": ",",
+        "format": "And i pronounce you %s husband and you %s wife."
+    }
+
+]
