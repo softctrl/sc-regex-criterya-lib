@@ -1,4 +1,4 @@
-## sc-req-resp-lib - Just a little project to parse queries
+### sc-req-resp-lib - Just a little project to parse queries
 
 
 So, just this little project aims to help you to process any kind of query. The main feature here is to identify some know patterns, make a few (or a lot) process into the query and then return the String that represents the final query.
