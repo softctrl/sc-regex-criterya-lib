@@ -17,7 +17,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit test for simple App.
+ * Unit test for QueryProcessorManager.
  */
 public class QueryProcessorManagerTest extends TestCase {
 

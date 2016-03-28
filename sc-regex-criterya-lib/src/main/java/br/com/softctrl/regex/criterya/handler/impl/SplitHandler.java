@@ -51,7 +51,7 @@ public class SplitHandler extends AHandler<String[]> {
      */
     @Override
     public String[] process(String value) {
-        return this.processInnerRule(value).trim().split(regex);
+        return this.processInnerRule(value).split(regex);
     }
 
 }

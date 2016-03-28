@@ -49,7 +49,7 @@ public abstract class AHandler<T> implements IHandler<T> {
          */
         @Override
         public String process(String value) {
-            return value.trim();
+            return value;
         }
 
         /*
