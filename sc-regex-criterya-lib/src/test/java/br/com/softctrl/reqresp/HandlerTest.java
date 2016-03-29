@@ -1,5 +1,6 @@
 package br.com.softctrl.reqresp;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import br.com.softctrl.regex.criterya.handler.impl.ChangeCaseHandler;
@@ -11,6 +12,16 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 public class HandlerTest extends TestCase {
+
+    /**
+     * 
+     * @param expected
+     * @param actual
+     */
+    static public void assertEquals(String expected, String actual) {
+        System.out.println(String.format(" [%s]\n=[%s]\n", expected, actual));
+        assertTrue(expected.equals(actual));
+    }
 
     /**
      * Create the test case
@@ -33,7 +44,6 @@ public class HandlerTest extends TestCase {
      * Test ChangeCaseHandler class
      */
     public void testChangeCaseHandler() {
-
         final String str1 = "KJDGFALSHKFGASHKLDFGAKFFFFFFFFFFFFFFFFFFFFFFFFASFAFEWRGLKHWAELÇDFJKAGHDFJKLAGSDKFGASDHFG";
         final String str2 = "qwerkjgqwerklhqgwrfhqwrhqwkjergqwkerhqwjklerhwkerçqklwrhlqwejhr qwelrjh qwlkjerh qwklerq";
         final String str3 = "asdfASDFASdfasDFasgsdfGhDHjFJuyJKtyuktykFYkjfgjdfHDRyherthDghbdfghNDTujETbvrtgWcrfwERtfg";
@@ -45,6 +55,7 @@ public class HandlerTest extends TestCase {
         assertEquals(str1, handler.process(str1));
         assertEquals(str2.toUpperCase(), handler.process(str2));
         assertEquals(str3.toUpperCase(), handler.process(str3));
+
     }
 
     /**
@@ -52,7 +63,7 @@ public class HandlerTest extends TestCase {
      */
     public void testReplaceAllHandler() {
 
-        String str1 = "2345kl2tg35k2g4k2jg44kjg42k34g52345uy2t423uyrt54uirt4ui2t 34iu52t 34iu5t 2ui5 2523452345";
+        String str1 = "2345kl2tg35k2g4k2jg44kjg42k34g52345uy2t423uyrt54uirt4ui2t 34iu52t34iu5t 2ui5 2523452345";
         String str2 = "ASFNAGBAGOAJGKAGAKFGAHDFGKAFDGAFGASDFKBAGJKABDGÇJAEKHROIGAHROIYHPTUORQPTHQWEJTHQBJWRKETBQTMNQVBRN,TVQWMBCBTMQRTQVNCRAVSDBNDSF23458972569023478956151895612897561348975612389456134958734657892356724YTIQURAKLJRB";
 
         String pattern = "[^\\p{Punct}\\d]";
@@ -76,13 +87,13 @@ public class HandlerTest extends TestCase {
         String str1 = "000.000.000-00";
 
         String pattern = "(\\.|-)";
-        assertEquals(str1.split(pattern), (new SplitHandler(pattern)).process(str1));
+        assertTrue(Arrays.equals(str1.split(pattern), (new SplitHandler(pattern)).process(str1)));
 
         pattern = "[\\d]";
-        assertEquals(str1.split(pattern), (new SplitHandler(pattern)).process(str1));
+        assertTrue(Arrays.equals(str1.split(pattern), ((new SplitHandler(pattern)).process(str1))));
 
         pattern = "[\\p{Punct}\\d]";
-        assertEquals(str1.split(pattern), (new SplitHandler(pattern)).process(str1));
+        assertTrue(Arrays.equals(str1.split(pattern), ((new SplitHandler(pattern)).process(str1))));
 
     }
 
@@ -91,12 +102,12 @@ public class HandlerTest extends TestCase {
      */
     public void testSubStringHandler() {
 
-        String str1 = "1234ujy123ffr 1 gg4jh23j1ddder34dh1tfgd4h123fgd4123fgd41h2g3fd4123fgd412fgd4h123fgd41123ghd412fgd123ghd41234rqklwjehtfajlçkrgvblkzdfjgblçjxzdfbhkdjfhsd";
+        String str1 = "1234ujy123ffr 1gg4jh23j1ddder34dh1tfgd4h123fgd4123fgd41h2g3fd4123fgd412fgd4h123fgd41123ghd412fgd123ghd41234rqklwjehtfajlçkrgvblkzdfjgblçjxzdfbhkdjfhsd";
         Random random = new Random(230928475l);
         int length = str1.length();
         int begin = 0;
         int end = 0;
-        for (int idx = 0; idx < 1000; idx++) {
+        for (int idx = 0; idx < 10000; idx++) {
             begin = random.nextInt(length);
             end = begin + random.nextInt(length - begin);
             assertEquals(str1.substring(begin, end), (new SubStringHandler(begin, end)).process(str1));
