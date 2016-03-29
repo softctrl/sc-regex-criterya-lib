@@ -1,0 +1,21 @@
+[
+    {
+        "name": "Tests Contacts",
+        "pattern": "^(contact|tel|cel):.+[^\\p{Punct}\\d]+\\.?",
+        "countParams": 1,
+        "format": "+contact:\"%s\"",
+        "rules": 
+        [
+            {
+                "param": 0,
+                "class": "ReplaceAll",
+                "json": "{regex:\"(contact|tel|cel):\", replace:\"\"}",
+                "rule": 
+                {
+                    "class": "Trim",
+                    "json": "{}"
+                }
+            }
+        ]
+    }
+]
