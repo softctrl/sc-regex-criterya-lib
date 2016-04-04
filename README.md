@@ -16,3 +16,5 @@ Some helpfull links:
 [My personal blog-0x09](http://www.0x09.com.br/).
 
 Thanks.
+
+[![Build Status](https://travis-ci.org/softctrl/sc-regex-criterya-lib.svg?branch=master)](https://travis-ci.org/softctrl/sc-regex-criterya-lib)
