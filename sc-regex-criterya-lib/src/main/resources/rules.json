@@ -18,7 +18,6 @@
             }
         ]
     },
-
     {
         "name": "Husband and wife",
         "pattern": "^[^\\p{Punct}\\d]+\\.?,[^\\p{Punct}\\d]+\\.?",
