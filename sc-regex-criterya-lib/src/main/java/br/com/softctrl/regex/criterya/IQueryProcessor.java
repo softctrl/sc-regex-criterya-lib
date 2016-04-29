@@ -44,5 +44,5 @@ public interface IQueryProcessor {
      * @return
      */
     String parseQuery(final String userQuery);
-
+    
 }

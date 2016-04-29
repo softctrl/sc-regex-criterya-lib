@@ -47,7 +47,6 @@ public abstract class AHandler<T> implements IHandler<T> {
          * (non-Javadoc)
          * @see br.com.softctrl.regex.criterya.handler.IHandler#process(java.lang.String)
          */
-        @Override
         public String process(String value) {
             return value;
         }
@@ -56,7 +55,6 @@ public abstract class AHandler<T> implements IHandler<T> {
          * (non-Javadoc)
          * @see br.com.softctrl.regex.criterya.handler.IHandler#getInnerRule()
          */
-        @Override
         public IHandler<String> getInnerRule() {
             return null;
         }
@@ -66,7 +64,6 @@ public abstract class AHandler<T> implements IHandler<T> {
      * (non-Javadoc)
      * @see br.com.softctrl.regex.criterya.handler.IHandler#getInnerRule()
      */
-    @Override
     public IHandler<String> getInnerRule() {
         return this.innerRule;
     }

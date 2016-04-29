@@ -4,7 +4,7 @@
 
 	<groupId>br.com.softctrl.regex.criterya</groupId>
 	<artifactId>sc-regex-criterya-lib</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>sc-regex-criterya-lib</name>
@@ -13,6 +13,19 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 	<dependencies>
 
@@ -38,6 +51,12 @@
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>br.com.softctrl</groupId>
+			<artifactId>sc-utils-java</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
