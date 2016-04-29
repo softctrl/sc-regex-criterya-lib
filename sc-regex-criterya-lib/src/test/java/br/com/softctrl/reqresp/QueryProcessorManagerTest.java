@@ -1,6 +1,6 @@
 package br.com.softctrl.reqresp;
 
-import static br.com.softctrl.regex.criterya.utils.GsonUtils.fromJsonFile;
+import static br.com.softctrl.utils.json.GsonUtils.fromJson;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,7 +11,7 @@ import java.util.List;
 
 import br.com.softctrl.regex.criterya.impl.QueryProcessorManager;
 import br.com.softctrl.regex.criterya.manager.Processor;
-import br.com.softctrl.regex.criterya.utils.FileUtils;
+import br.com.softctrl.utils.io.FileUtils;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -79,7 +79,7 @@ public class QueryProcessorManagerTest extends TestCase {
     public QueryProcessorManagerTest(String testName) {
         super(testName);
 
-        Processor[] processors = fromJsonFile(FileUtils.getFileInClasspath("rules.json"), Processor[].class);
+        Processor[] processors = fromJson(FileUtils.getFileInClasspath("rules.json"), Processor[].class);
         QueryProcessorManager.setup(processors);
 
         REQUEST.clear();

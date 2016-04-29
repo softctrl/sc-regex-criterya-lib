@@ -36,6 +36,9 @@ SOFTWARE.
  * @author carlostimoshenkorodrigueslopes@gmail.com
  */
 public class Processor {
+	
+	@Expose
+	private boolean deprecated;
 
     @Expose
     private String name;
@@ -49,6 +52,22 @@ public class Processor {
     private String format;
     @Expose
     private Rule[] rules;
+    
+    /**
+     * 
+     * @return
+     */
+	public boolean isDeprecated() {
+		return deprecated;
+	}
+	
+	/**
+	 * 
+	 * @param deprecated
+	 */
+	public void setDeprecated(boolean deprecated) {
+		this.deprecated = deprecated;
+	}
 
     /**
      * @return the name
@@ -150,22 +169,18 @@ public class Processor {
             }
             if ("".equals(this.splitParams)) {
                 processor = new IQueryProcessor() {
-                    @Override
                     public String parseQuery(String userQuery) {
                         for (int idx = 0; idx < getCountParams(); idx++) {
                             params[idx] = rules[idx].process(userQuery);
                         }
                         return String.format(Processor.this.getFormat(), params);
                     }
-
-                    @Override
                     public boolean matches(String userQuery) {
                         return userQuery.matches(Processor.this.getPattern());
                     }
                 };
             } else {
                 processor = new IQueryProcessor() {
-                    @Override
                     public String parseQuery(String userQuery) {
                         String[] values = userQuery.split(Processor.this.splitParams);
                         for (int idx = 0; idx < getCountParams(); idx++) {
@@ -173,8 +188,6 @@ public class Processor {
                         }
                         return String.format(Processor.this.getFormat(), params);
                     }
-
-                    @Override
                     public boolean matches(String userQuery) {
                         return userQuery.matches(Processor.this.getPattern());
                     }
@@ -188,12 +201,9 @@ public class Processor {
                 rule = DEFAULT_RULE;
             }
             processor = new IQueryProcessor() {
-                @Override
                 public String parseQuery(String userQuery) {
                     return String.format(Processor.this.getFormat(), rule.process(userQuery));
                 }
-
-                @Override
                 public boolean matches(String userQuery) {
                     return userQuery.matches(Processor.this.getPattern());
                 }

@@ -5,6 +5,10 @@ import java.util.List;
 
 import br.com.softctrl.regex.criterya.IQueryProcessor;
 import br.com.softctrl.regex.criterya.manager.Processor;
+import br.com.softctrl.regex.criterya.util.Matcher;
+import br.com.softctrl.regex.criterya.util.Matcher.IMatcher;
+import br.com.softctrl.regex.criterya.util.Matcher.Pattern;
+import br.com.softctrl.utils.Objects;
 
 /*
 The MIT License (MIT)
@@ -36,29 +40,43 @@ SOFTWARE.
  * @author carlostimoshenkorodrigueslopes@gmail.com
  */
 public class QueryProcessorManager {
-
-    private final static List<IQueryProcessor> PARSERS = new ArrayList<IQueryProcessor>();
+	
+	/**
+	 * A pool of Query processors. 
+	 */
+    private final static List<Pattern> PARSERS = new ArrayList<Pattern>();
+    private static int LENGTH = 0;
+//    private final static List SConcurrentHashMap PARSERS = new SConcurrentHashMap();
+    
 
     /**
      * 
      * @return
      */
-    public static final List<IQueryProcessor> getParsers() {
+    public static final List<Pattern> getParsers() {
         return PARSERS;
     }
 
+//    public static final SConcurrentHashMap getParsers() {
+//        return PARSERS;
+//    }
+
     /**
      * 
+     * @param processors
      */
     public static final synchronized void setup(final Processor[] processors) {
         PARSERS.clear();
         for (Processor processor : processors) {
             try {
-                PARSERS.add(processor.createQueryProcessor());
+            	if (!processor.isDeprecated()) {
+            		PARSERS.add(new Pattern(processor.createQueryProcessor()));
+            	}
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
+        LENGTH = PARSERS.size();
     }
 
     /**
@@ -67,14 +85,28 @@ public class QueryProcessorManager {
      * @return
      */
     public static final String parse(final String userQuery) {
-        String query = userQuery;
-        for (IQueryProcessor iQueryProcessor : PARSERS) {
-            if (iQueryProcessor.matches(userQuery)) {
-                query = iQueryProcessor.parseQuery(userQuery);
-                break;
-            }
-        }
-        return query;
+    	return parseOrDefault(userQuery, userQuery);
+    }
+
+    /**
+     * 
+     * @param userQuery
+     * @param def
+     * @return
+     */
+    public static final String parseOrDefault(final String userQuery, final String def) {
+
+		int idx = PARSERS.indexOf(new Matcher.Query(userQuery));
+		IQueryProcessor processor = (Objects.inRange(idx, 0, LENGTH) ? PARSERS.get(idx).getProcessor() : null);
+		return (Objects.isNull(processor) ? def : processor.parseQuery(userQuery));
+        
+//        for (IQueryProcessor iQueryProcessor : PARSERS) {
+//            if (iQueryProcessor.matches(userQuery)) {
+//                query = iQueryProcessor.parseQuery(userQuery);
+//                break;
+//            }
+//        }
+//        return query;
     }
 
 }

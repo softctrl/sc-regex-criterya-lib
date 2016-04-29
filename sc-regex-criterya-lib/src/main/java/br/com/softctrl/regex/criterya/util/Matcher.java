@@ -1,9 +1,7 @@
-/**
- * 
- */
-package br.com.softctrl.regex.criterya.handler.impl;
+package br.com.softctrl.regex.criterya.util;
 
-import com.google.gson.annotations.Expose;
+import br.com.softctrl.regex.criterya.IQueryProcessor;
+import br.com.softctrl.utils.Objects;
 
 /*
 The MIT License (MIT)
@@ -34,24 +32,39 @@ SOFTWARE.
  * 
  * @author carlostimoshenkorodrigueslopes@gmail.com
  */
-public class ChangeCaseHandler extends AHandler<String> {
+public class Matcher {
 
-    @Expose
-    private boolean upper = true;
+	/**
+	 * 
+	 * @author carlostimoshenkorodrigueslopes@gmail.com
+	 *
+	 */
+	public interface IMatcher { }
+	
+	/**
+	 * 
+	 * @author carlostimoshenkorodrigueslopes@gmail.com
+	 *
+	 */
+	public static class Pattern implements IMatcher {
 
-    public ChangeCaseHandler(boolean upper) {
-        this.upper = upper;
-    }
+		private IQueryProcessor processor = null;
+		public Pattern(IQueryProcessor processor) { this.processor = Objects.requireNonNull(processor); }
+		public IQueryProcessor getProcessor() { return processor; }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see br.com.softctrl.regex.criterya.handler.IHandler#process(java.lang.
-     * String)
-     */
-    public String process(String value) {
-        value = super.processInnerRule(value);
-        return (upper ? value.toUpperCase() : value.toLowerCase());
-    }
+	}
+
+	/**
+	 * @author carlostimoshenkorodrigueslopes@gmail.com
+	 */
+	public static class Query implements IMatcher {
+
+		private String value;
+		public Query(String value) { this.value = value; }
+		@Override public boolean equals(Object pattern) {
+			return ((Pattern)pattern).processor.matches(value);
+		}
+
+	}
 
 }

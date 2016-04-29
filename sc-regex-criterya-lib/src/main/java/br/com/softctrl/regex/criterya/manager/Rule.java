@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import br.com.softctrl.regex.criterya.handler.IHandler;
 import br.com.softctrl.regex.criterya.handler.impl.AHandler;
-import br.com.softctrl.regex.criterya.utils.GsonUtils;
+import br.com.softctrl.utils.json.GsonUtils;
 
 /*
 The MIT License (MIT)
