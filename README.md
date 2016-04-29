@@ -11,7 +11,7 @@ Some helpfull links:
 
 [Full source of this project](https://github.com/softctrl/sc-regex-criterya-lib/archive/master.zip).
 
-[The library jar](https://github.com/softctrl/sc-regex-criterya-lib/blob/master/files/sc-regex-criterya-lib-0.0.1-SNAPSHOT.jar?raw=true).
+[The library jar](https://github.com/softctrl/sc-regex-criterya-lib/blob/master/files/sc-regex-criterya-lib-0.0.3-SNAPSHOT.jar?raw=true).
 
 [My personal blog-0x09](http://www.0x09.com.br/).
 
