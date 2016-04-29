@@ -2,4 +2,4 @@
 
 language: java
 
-script: cd sc-regex-criterya-lib && mvn install && mvn test
+script: git clone https://github.com/softctrl/sc-utils-java.git && cd sc-utils-java/sc-utils-java && mvn clean test install && cd ../../ && cd sc-regex-criterya-lib && mvn install && mvn test
