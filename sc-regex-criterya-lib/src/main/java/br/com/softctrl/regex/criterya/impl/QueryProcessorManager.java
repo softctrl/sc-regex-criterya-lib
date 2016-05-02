@@ -6,7 +6,6 @@ import java.util.List;
 import br.com.softctrl.regex.criterya.IQueryProcessor;
 import br.com.softctrl.regex.criterya.manager.Processor;
 import br.com.softctrl.regex.criterya.util.Matcher;
-import br.com.softctrl.regex.criterya.util.Matcher.IMatcher;
 import br.com.softctrl.regex.criterya.util.Matcher.Pattern;
 import br.com.softctrl.utils.Objects;
 
@@ -45,8 +44,11 @@ public class QueryProcessorManager {
 	 * A pool of Query processors. 
 	 */
     private final static List<Pattern> PARSERS = new ArrayList<Pattern>();
+
+    /**
+     * The length (count) of the parsers available.
+     */
     private static int LENGTH = 0;
-//    private final static List SConcurrentHashMap PARSERS = new SConcurrentHashMap();
     
 
     /**
@@ -57,12 +59,9 @@ public class QueryProcessorManager {
         return PARSERS;
     }
 
-//    public static final SConcurrentHashMap getParsers() {
-//        return PARSERS;
-//    }
-
     /**
-     * 
+     * Update the processors available for you project.
+     *  
      * @param processors
      */
     public static final synchronized void setup(final Processor[] processors) {
@@ -80,15 +79,17 @@ public class QueryProcessorManager {
     }
 
     /**
+     * Perform a parser in a string value informed.
      * 
      * @param userQuery
-     * @return
+     * @return The string value parsed.
      */
     public static final String parse(final String userQuery) {
     	return parseOrDefault(userQuery, userQuery);
     }
 
     /**
+     * Perform a parser in a string value informed or return a default value.
      * 
      * @param userQuery
      * @param def
@@ -99,14 +100,7 @@ public class QueryProcessorManager {
 		int idx = PARSERS.indexOf(new Matcher.Query(userQuery));
 		IQueryProcessor processor = (Objects.inRange(idx, 0, LENGTH) ? PARSERS.get(idx).getProcessor() : null);
 		return (Objects.isNull(processor) ? def : processor.parseQuery(userQuery));
-        
-//        for (IQueryProcessor iQueryProcessor : PARSERS) {
-//            if (iQueryProcessor.matches(userQuery)) {
-//                query = iQueryProcessor.parseQuery(userQuery);
-//                break;
-//            }
-//        }
-//        return query;
+
     }
 
 }
