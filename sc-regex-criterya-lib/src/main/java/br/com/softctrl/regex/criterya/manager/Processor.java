@@ -1,6 +1,7 @@
 package br.com.softctrl.regex.criterya.manager;
 
 import com.google.gson.annotations.Expose;
+import static br.com.softctrl.utils.Objects.isNull;
 
 import br.com.softctrl.regex.criterya.IQueryProcessor;
 import br.com.softctrl.regex.criterya.handler.IHandler;
@@ -37,21 +38,14 @@ SOFTWARE.
  */
 public class Processor {
 	
-	@Expose
-	private boolean deprecated;
-
-    @Expose
-    private String name;
-    @Expose
-    private String pattern;
-    @Expose
-    private int countParams;
-    @Expose
-    private String splitParams = "";
-    @Expose
-    private String format;
-    @Expose
-    private Rule[] rules;
+	@Expose private boolean deprecated;
+	@Expose private int code;
+    @Expose private String name;
+    @Expose private String pattern;
+    @Expose private int countParams;
+    @Expose private String splitParams = "";
+    @Expose private String format;
+    @Expose private Rule[] rules;
     
     /**
      * 
@@ -67,6 +61,22 @@ public class Processor {
 	 */
 	public void setDeprecated(boolean deprecated) {
 		this.deprecated = deprecated;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getCode() {
+		return code;
+	}
+	
+	/**
+	 * 
+	 * @param code
+	 */
+	public void setCode(int code) {
+		this.code = code;
 	}
 
     /**
@@ -167,28 +177,34 @@ public class Processor {
                     rules[idx] = DEFAULT_RULE;
                 }
             }
-            if ("".equals(this.splitParams)) {
+            if (isNull(this.splitParams)) {
                 processor = new IQueryProcessor() {
-                    public String parseQuery(String userQuery) {
+                	@Override public int getCode() {
+                		return Processor.this.code;
+                	}
+                	@Override public String parseQuery(String userQuery) {
                         for (int idx = 0; idx < getCountParams(); idx++) {
                             params[idx] = rules[idx].process(userQuery);
                         }
                         return String.format(Processor.this.getFormat(), params);
                     }
-                    public boolean matches(String userQuery) {
+                	@Override public boolean matches(String userQuery) {
                         return userQuery.matches(Processor.this.getPattern());
                     }
                 };
             } else {
                 processor = new IQueryProcessor() {
-                    public String parseQuery(String userQuery) {
+                	@Override public int getCode() {
+                		return Processor.this.code;
+                	}
+                	@Override public String parseQuery(String userQuery) {
                         String[] values = userQuery.split(Processor.this.splitParams);
                         for (int idx = 0; idx < getCountParams(); idx++) {
                             params[idx] = rules[idx].process(values[idx]);
                         }
                         return String.format(Processor.this.getFormat(), params);
                     }
-                    public boolean matches(String userQuery) {
+                	@Override public boolean matches(String userQuery) {
                         return userQuery.matches(Processor.this.getPattern());
                     }
                 };
@@ -201,10 +217,13 @@ public class Processor {
                 rule = DEFAULT_RULE;
             }
             processor = new IQueryProcessor() {
-                public String parseQuery(String userQuery) {
+            	@Override public int getCode() {
+            		return Processor.this.code;
+            	}
+            	@Override public String parseQuery(String userQuery) {
                     return String.format(Processor.this.getFormat(), rule.process(userQuery));
                 }
-                public boolean matches(String userQuery) {
+            	@Override public boolean matches(String userQuery) {
                     return userQuery.matches(Processor.this.getPattern());
                 }
             };

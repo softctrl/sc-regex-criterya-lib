@@ -77,6 +77,16 @@ public class QueryProcessorManager {
         }
         LENGTH = PARSERS.size();
     }
+    
+    /**
+     * 
+     * @param userQuery
+     * @return
+     */
+    public static final IQueryProcessor getParser(final String userQuery){
+		int idx = PARSERS.indexOf(new Matcher.Query(userQuery));
+		return (Objects.inRange(idx, 0, LENGTH) ? PARSERS.get(idx).getProcessor() : null);
+    }
 
     /**
      * Perform a parser in a string value informed.
@@ -97,8 +107,7 @@ public class QueryProcessorManager {
      */
     public static final String parseOrDefault(final String userQuery, final String def) {
 
-		int idx = PARSERS.indexOf(new Matcher.Query(userQuery));
-		IQueryProcessor processor = (Objects.inRange(idx, 0, LENGTH) ? PARSERS.get(idx).getProcessor() : null);
+		IQueryProcessor processor = getParser(userQuery);
 		return (Objects.isNull(processor) ? def : processor.parseQuery(userQuery));
 
     }

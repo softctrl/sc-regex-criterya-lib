@@ -1,5 +1,6 @@
 [
     {
+    	"code":102030,
         "name": "Contact",
         "pattern": "^(contact|tel|cel):.+[^\\p{Punct}\\d]+\\.?",
         "countParams": 1,
@@ -19,6 +20,7 @@
         ]
     },
     {
+    	"code":112233,
         "name": "Husband and wife",
         "pattern": "^[^\\p{Punct}\\d]+\\.?,[^\\p{Punct}\\d]+\\.?",
         "countParams": 2,
