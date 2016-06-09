@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import br.com.softctrl.regex.criterya.handler.impl.ChangeCaseHandler;
+import br.com.softctrl.regex.criterya.handler.impl.RemoveAccentsHandler;
 import br.com.softctrl.regex.criterya.handler.impl.ReplaceAllHandler;
 import br.com.softctrl.regex.criterya.handler.impl.SplitHandler;
 import br.com.softctrl.regex.criterya.handler.impl.SubStringHandler;
@@ -140,5 +141,17 @@ public class HandlerTest extends TestCase {
         }
 
     }
+
+    /**
+     * Test RemoveAccentsHandler class.
+     */
+	public void testRemoveAccentsHandler() {
+
+		String VALUES_WITH_ACCENTS = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ";
+		String VALUES_WITHOUT_ACCENTS = "AAAAAAÆCEEEEIIIIÐNOOOOOØUUUUYÞßaaaaaaæceeeeiiiiðnoooooøuuuuyþy";
+		String result = new RemoveAccentsHandler().process(VALUES_WITH_ACCENTS);
+		assertEquals(VALUES_WITHOUT_ACCENTS, result);
+
+	}
 
 }
