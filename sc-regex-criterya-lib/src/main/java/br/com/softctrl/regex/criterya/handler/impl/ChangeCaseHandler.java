@@ -36,8 +36,7 @@ SOFTWARE.
  */
 public class ChangeCaseHandler extends AHandler<String> {
 
-    @Expose
-    private boolean upper = true;
+    @Expose private boolean upper = true;
 
     public ChangeCaseHandler(boolean upper) {
         this.upper = upper;
