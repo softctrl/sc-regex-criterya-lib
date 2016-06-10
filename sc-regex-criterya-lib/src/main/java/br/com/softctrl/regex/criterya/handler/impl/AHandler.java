@@ -3,6 +3,8 @@
  */
 package br.com.softctrl.regex.criterya.handler.impl;
 
+import static br.com.softctrl.utils.Objects.nonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -39,9 +41,10 @@ SOFTWARE.
  */
 public abstract class AHandler<T> implements IHandler<T> {
 
-    @Expose
-    @SerializedName("rule")
-    private IHandler<String> innerRule = new IHandler<String>() {
+	/**
+	 * if there is another rule to be processed.
+	 */
+    @Expose @SerializedName("rule") private IHandler<String> innerRule = new IHandler<String>() {
 
         /*
          * (non-Javadoc)
@@ -84,7 +87,7 @@ public abstract class AHandler<T> implements IHandler<T> {
      * @return
      */
     protected String processInnerRule(String value) {
-        if (this.getInnerRule() != null) {
+        if (nonNull(this.getInnerRule())) {
             value = this.getInnerRule().process(value);
         }
         return value;
