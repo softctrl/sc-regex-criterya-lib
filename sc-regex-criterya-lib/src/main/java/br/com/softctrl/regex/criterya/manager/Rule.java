@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import br.com.softctrl.regex.criterya.handler.IHandler;
 import br.com.softctrl.regex.criterya.handler.impl.AHandler;
+import br.com.softctrl.utils.Objects;
 import br.com.softctrl.utils.json.GsonUtils;
 
 /*
@@ -73,7 +74,7 @@ public class Rule {
     private IHandler<?> createRule(Rule rule) throws ClassNotFoundException {
         AHandler<?> result = (AHandler<?>) GsonUtils.fromJson(rule.json,
                 Class.forName(String.format(PACKAGE, rule.clazz)));
-        if (rule.innerRule != null) {
+        if (Objects.nonNull(rule.innerRule)) {
             result.setInnerRule((IHandler<String>) createRule(rule.innerRule));
         }
         return result;
